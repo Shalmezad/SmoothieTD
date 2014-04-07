@@ -62,7 +62,8 @@ class PlayState extends FlxState
 		enemy.x = startX;
 		enemy.y = startY;
 		var path:Array<FlxPoint> = tileMap.findPath(new FlxPoint(startX, startY), new FlxPoint(endX, endY));
-		if (path == null) {
+		if (path == null) 
+		{
 			throw("No valid path! Does the tilemap provide a valid path from start to finish?");
 		}
 		FlxPath.start(enemy, path, 50, 0, true);
@@ -77,6 +78,12 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+		handleInput();
+		handleLogic();
+	}	
+	
+	private function handleInput():Void
+	{
 		if (FlxG.mouse.justReleased)
 		{
 			if (mouse_mode == MODE_BUILD)
@@ -95,5 +102,16 @@ class PlayState extends FlxState
 				}
 			}
 		}
-	}	
+	}
+	
+	private function handleLogic():Void
+	{
+		FlxG.overlap(bullets, enemies, bulletEnemyOverlap);
+	}
+	
+	private function bulletEnemyOverlap(bullet:Dynamic, enemy:Dynamic):Void
+	{
+		enemy.hurt(1);
+		bullet.kill();
+	}
 }

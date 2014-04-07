@@ -47,6 +47,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/strawberry.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/images/tileset.png", __ASSET__assets_images_tileset_png);
 		type.set ("assets/images/tileset.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/images/tower1.png", __ASSET__assets_images_tower1_png);
+		type.set ("assets/images/tower1.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/music/music-goes-here.txt", __ASSET__assets_music_music_goes_here_txt);
 		type.set ("assets/music/music-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/sounds/sounds-go-here.txt", __ASSET__assets_sounds_sounds_go_here_txt);
@@ -60,6 +62,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		addExternal("assets/images/images-go-here.txt", "text", "assets/images/images-go-here.txt");
 		addExternal("assets/images/strawberry.png", "image", "assets/images/strawberry.png");
 		addExternal("assets/images/tileset.png", "image", "assets/images/tileset.png");
+		addExternal("assets/images/tower1.png", "image", "assets/images/tower1.png");
 		addExternal("assets/music/music-goes-here.txt", "text", "assets/music/music-goes-here.txt");
 		addExternal("assets/sounds/sounds-go-here.txt", "text", "assets/sounds/sounds-go-here.txt");
 		
@@ -632,11 +635,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_strawberry_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_tileset_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_tower1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_music_music_goes_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_sounds_sounds_go_here_txt extends flash.utils.ByteArray { }
 
 
 #elseif html5
+
 
 
 

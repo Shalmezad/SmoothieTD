@@ -23,13 +23,19 @@ class PlayState extends FlxState
 	var TILE_WIDTH:Int = 20;
 	var TILE_HEIGHT:Int = 20;
 	
-	/**
-	 * Function that is called up when to state is created to set it up. 
-	 */
+	//TODO: Convert modes to enum if haXe allows it.
+	var MODE_BUILD:Int = 1;
+	var mouse_mode:Int;
+	
+	var TILE_BUILDABLE:Int = 2;
+	
+	var tileMap:FlxTilemap;
+	
 	override public function create():Void
 	{
 		super.create();
-		var tileMap:FlxTilemap = new FlxTilemap();
+		mouse_mode = MODE_BUILD;
+		tileMap = new FlxTilemap();
 		
 		tileMap.loadMap(Assets.getText("assets/data/map1.csv"), "assets/images/tileset.png",TILE_WIDTH,TILE_HEIGHT,0,0,1,2);
 		add(tileMap);
@@ -64,5 +70,23 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+		if (FlxG.mouse.justReleased)
+		{
+			if (mouse_mode == MODE_BUILD)
+			{
+				//get the tileX/Y.
+				var tileX:Int = Std.int(FlxG.mouse.x / TILE_WIDTH);
+				var tileY:Int = Std.int(FlxG.mouse.y / TILE_HEIGHT);
+				//Check to see if the tile is BUILDABLE.
+				if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE)
+				{
+					//Add the tower here.
+					var tower:Tower = new Tower();
+					tower.x = tileX * TILE_WIDTH;
+					tower.y = tileY * TILE_HEIGHT;
+					add(tower);
+				}
+			}
+		}
 	}	
 }

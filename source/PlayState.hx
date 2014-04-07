@@ -23,7 +23,9 @@ class PlayState extends FlxState
 	public var TILE_HEIGHT:Int = 20;
 	
 	//TODO: Convert modes to enum if haXe allows it.
-	var MODE_BUILD:Int = 1;
+	var MODE_BUILD:Int = 1;		//attempting to build a tower
+	var MODE_SELECTED:Int = 2;	//selected a tower (to upgrade/sell)
+	var MODE_NONE:Int = 3; 		//No extra.
 	var mouse_mode:Int;
 	
 	var TILE_BUILDABLE:Int = 2;
@@ -71,19 +73,16 @@ class PlayState extends FlxState
 	{
 		if (FlxG.mouse.justReleased)
 		{
+			//get the tileX/Y.
+			var tileX:Int = Std.int(FlxG.mouse.x / TILE_WIDTH);
+			var tileY:Int = Std.int(FlxG.mouse.y / TILE_HEIGHT);
 			if (mouse_mode == MODE_BUILD)
 			{
-				//get the tileX/Y.
-				var tileX:Int = Std.int(FlxG.mouse.x / TILE_WIDTH);
-				var tileY:Int = Std.int(FlxG.mouse.y / TILE_HEIGHT);
-				//Check to see if the tile is BUILDABLE.
-				if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE)
+				var success:Bool = attemptBuild(tileX, tileY);
+				if (!success)
 				{
-					//Add the tower here.
-					var tower:Tower = new Tower();
-					tower.x = tileX * TILE_WIDTH;
-					tower.y = tileY * TILE_HEIGHT;
-					towers.add(tower);
+					//we didn't build. Attempt selection.
+					attemptSelection(tileX, tileY);
 				}
 			}
 		}
@@ -98,5 +97,26 @@ class PlayState extends FlxState
 	{
 		enemy.hurt(1);
 		bullet.kill();
+	}
+	
+	private function attemptBuild(tileX:Int, tileY:Int):Bool
+	{
+		//Check to see if the tile is BUILDABLE.
+		if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE)
+		{
+			//Add the tower here.
+			var tower:Tower = new Tower();
+			tower.x = tileX * TILE_WIDTH;
+			tower.y = tileY * TILE_HEIGHT;
+			towers.add(tower);
+			return true;
+		}
+		return false;
+	}
+	
+	private function attemptSelection(tileX:Int, tileY:Int):Bool
+	{
+		
+		return false;
 	}
 }

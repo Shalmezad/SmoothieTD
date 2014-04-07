@@ -11,6 +11,7 @@ import flixel.util.FlxMath;
 import flixel.util.FlxPoint;
 import flixel.util.FlxPath;
 import openfl.Assets;
+import flixel.group.FlxTypedGroup;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -32,8 +33,9 @@ class PlayState extends FlxState
 	
 	var tileMap:FlxTilemap;
 	
-	var enemies:FlxGroup;
-	var towers:FlxGroup;
+	public var enemies:FlxTypedGroup<Enemy>;
+	var towers:FlxTypedGroup<Tower>;
+	public var bullets:FlxTypedGroup<Bullet>;
 	
 	override public function create():Void
 	{
@@ -42,13 +44,15 @@ class PlayState extends FlxState
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
-		enemies = new FlxGroup();
-		towers = new FlxGroup();
+		enemies = new FlxTypedGroup<Enemy>();
+		towers = new FlxTypedGroup<Tower>();
+		bullets = new FlxTypedGroup<Bullet>();
 		
 		tileMap.loadMap(Assets.getText("assets/data/map1.csv"), "assets/images/tileset.png",TILE_WIDTH,TILE_HEIGHT,0,0,1,2);
 		add(tileMap);
 		add(towers);
 		add(enemies);
+		add(bullets);
 		
 		var enemy:Enemy = new Enemy();
 		var startX:Int = START_TILE_X * TILE_WIDTH;

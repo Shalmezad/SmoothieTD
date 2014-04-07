@@ -21,6 +21,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 	private var cooldown:Int;
 	
 	private var WAVES_DATA:Xml;
+	private var currentWave:Xml;
 	
 	public function new() 
 	{

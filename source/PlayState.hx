@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
@@ -31,20 +32,29 @@ class PlayState extends FlxState
 	
 	var tileMap:FlxTilemap;
 	
+	var enemies:FlxGroup;
+	var towers:FlxGroup;
+	
 	override public function create():Void
 	{
 		super.create();
+		Reg.PS = this;
+		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
+		enemies = new FlxGroup();
+		towers = new FlxGroup();
 		
 		tileMap.loadMap(Assets.getText("assets/data/map1.csv"), "assets/images/tileset.png",TILE_WIDTH,TILE_HEIGHT,0,0,1,2);
 		add(tileMap);
+		add(towers);
+		add(enemies);
 		
 		var enemy:Enemy = new Enemy();
 		var startX:Int = START_TILE_X * TILE_WIDTH;
 		var startY:Int = START_TILE_Y * TILE_HEIGHT;
 		var endX:Int = END_TILE_X * TILE_WIDTH;
-		var endY:Int =END_TILE_Y * TILE_HEIGHT;
+		var endY:Int = END_TILE_Y * TILE_HEIGHT;
 		enemy.x = startX;
 		enemy.y = startY;
 		var path:Array<FlxPoint> = tileMap.findPath(new FlxPoint(startX, startY), new FlxPoint(endX, endY));
@@ -52,21 +62,14 @@ class PlayState extends FlxState
 			throw("No valid path! Does the tilemap provide a valid path from start to finish?");
 		}
 		FlxPath.start(enemy, path, 50, 0, true);
-		add(enemy);
+		enemies.add(enemy);
 	}
 	
-	/**
-	 * Function that is called when this state is destroyed - you might want to 
-	 * consider setting all objects this state uses to null to help garbage collection.
-	 */
 	override public function destroy():Void
 	{
 		super.destroy();
 	}
 
-	/**
-	 * Function that is called once every frame.
-	 */
 	override public function update():Void
 	{
 		super.update();
@@ -84,7 +87,7 @@ class PlayState extends FlxState
 					var tower:Tower = new Tower();
 					tower.x = tileX * TILE_WIDTH;
 					tower.y = tileY * TILE_HEIGHT;
-					add(tower);
+					towers.add(tower);
 				}
 			}
 		}

@@ -30,7 +30,7 @@ class Tower extends FlxSprite
 		if (cooldown <= 0)
 		{
 			//see if there's an enemy nearby to shoot.
-			var enemy:Enemy = getNearestEnemy();
+			var enemy:Enemy = Reg.PS.spawner.getNearest(x,y,range);
 			if (enemy != null)
 			{
 				shoot(enemy);
@@ -45,28 +45,6 @@ class Tower extends FlxSprite
 		bullet.init(x, y, enemy);
 	}
 	
-	private function getNearestEnemy():Enemy
-	{
-		var firstEnemy:Enemy = null;
-		var enemies:FlxTypedGroup<Enemy> = Reg.PS.enemies;
-		var myPoint = new FlxPoint(x, y);
-		var enemyPoint = new FlxPoint(0, 0);
-		for (enemy in enemies.members)
-		{
-			if (enemy != null && enemy.alive)
-			{
-				enemyPoint.set(enemy.x, enemy.y);
-				var distance:Float = FlxMath.getDistance(myPoint, enemyPoint);
 
-				if (distance <= range)
-				{
-					firstEnemy = enemy;
-					break;
-				}
-			}
-		}
-
-		return firstEnemy;
-	}
 	
 }

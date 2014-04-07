@@ -18,12 +18,9 @@ import flixel.group.FlxTypedGroup;
  */
 class PlayState extends FlxState
 {
-	var START_TILE_X:Int = 0;
-	var START_TILE_Y:Int = 2;
-	var END_TILE_X:Int = 15;
-	var END_TILE_Y:Int = 5;
-	var TILE_WIDTH:Int = 20;
-	var TILE_HEIGHT:Int = 20;
+
+	public var TILE_WIDTH:Int = 20;
+	public var TILE_HEIGHT:Int = 20;
 	
 	//TODO: Convert modes to enum if haXe allows it.
 	var MODE_BUILD:Int = 1;
@@ -31,11 +28,12 @@ class PlayState extends FlxState
 	
 	var TILE_BUILDABLE:Int = 2;
 	
-	var tileMap:FlxTilemap;
+	public var tileMap:FlxTilemap;
 	
-	public var enemies:FlxTypedGroup<Enemy>;
 	var towers:FlxTypedGroup<Tower>;
 	public var bullets:FlxTypedGroup<Bullet>;
+	
+	public var spawner:Spawner;
 	
 	override public function create():Void
 	{
@@ -44,30 +42,17 @@ class PlayState extends FlxState
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
-		enemies = new FlxTypedGroup<Enemy>();
 		towers = new FlxTypedGroup<Tower>();
 		bullets = new FlxTypedGroup<Bullet>();
+		spawner = new Spawner();
 		
 		tileMap.loadMap(Assets.getText("assets/data/map1.csv"), "assets/images/tileset.png",TILE_WIDTH,TILE_HEIGHT,0,0,1,2);
 		add(tileMap);
 		add(towers);
-		add(enemies);
 		add(bullets);
+		add(spawner);
 		
-		var enemy:Enemy = new Enemy();
-		var startX:Int = START_TILE_X * TILE_WIDTH;
-		var startY:Int = START_TILE_Y * TILE_HEIGHT;
-		var endX:Int = END_TILE_X * TILE_WIDTH;
-		var endY:Int = END_TILE_Y * TILE_HEIGHT;
-		enemy.x = startX;
-		enemy.y = startY;
-		var path:Array<FlxPoint> = tileMap.findPath(new FlxPoint(startX, startY), new FlxPoint(endX, endY));
-		if (path == null) 
-		{
-			throw("No valid path! Does the tilemap provide a valid path from start to finish?");
-		}
-		FlxPath.start(enemy, path, 50, 0, true);
-		enemies.add(enemy);
+
 	}
 	
 	override public function destroy():Void
@@ -106,7 +91,7 @@ class PlayState extends FlxState
 	
 	private function handleLogic():Void
 	{
-		FlxG.overlap(bullets, enemies, bulletEnemyOverlap);
+		FlxG.overlap(bullets, spawner, bulletEnemyOverlap);
 	}
 	
 	private function bulletEnemyOverlap(bullet:Dynamic, enemy:Dynamic):Void

@@ -38,6 +38,8 @@ class Tower extends FlxSprite
 		}
 	}
 	
+	
+	
 	private function shoot(enemy:Enemy):Void
 	{
 		cooldown = COOLDOWN_MAX;

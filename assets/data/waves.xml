@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<wave 	name="Triple Berry"
+			color="0xFFCD58C1">
+		<enemy type="Strawberry" ratio="1" />
+		<enemy type="Blueberry" ratio="1" />
+		<enemy type="Rasberry" ratio="1" />
+	</wave>
+	<wave 	name="Peanut Butter Jelly"
+			color="0xFF412731">
+		<enemy type="PeanutButter" ratio="1"/>
+		<enemy type="Strawberry" ratio="1"/>
+	</wave>
+	<wave 	name="Chunky Monkey"
+			color="0xFFB0A14D">
+		<enemy type="Banana" ratio="1"/>
+		<enemy type="PeanutButter" ratio="1"/>
+	</wave>
+</data>

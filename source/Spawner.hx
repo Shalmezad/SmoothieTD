@@ -3,6 +3,8 @@ import flixel.group.FlxTypedGroup;
 import flixel.util.FlxPoint;
 import flixel.util.FlxPath;
 import flixel.util.FlxMath;
+import flixel.FlxG;
+import openfl.Assets;
 
 /**
  * ...
@@ -18,10 +20,20 @@ class Spawner extends FlxTypedGroup<Enemy>
 	private var MAX_COOLDOWN = 50;
 	private var cooldown:Int;
 	
+	private var WAVES_DATA:Xml;
+	
 	public function new() 
 	{
 		super();
 		cooldown = MAX_COOLDOWN;
+		WAVES_DATA = Xml.parse(Assets.getText("assets/data/waves.xml"));
+		for (wave in WAVES_DATA.firstElement().elements())
+		{
+			//trace(wave);
+			trace("Name: " + wave.get("name"));
+			trace("Color: " + wave.get("color"));
+			trace("___________________");
+		}
 	}
 	
 	override public function update():Void

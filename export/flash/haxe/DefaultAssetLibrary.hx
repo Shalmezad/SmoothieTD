@@ -41,6 +41,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/data/map1.csv", __ASSET__assets_data_map1_csv);
 		type.set ("assets/data/map1.csv", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/waves.xml", __ASSET__assets_data_waves_xml);
+		type.set ("assets/data/waves.xml", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/images/images-go-here.txt", __ASSET__assets_images_images_go_here_txt);
 		type.set ("assets/images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/images/strawberry.png", __ASSET__assets_images_strawberry_png);
@@ -59,6 +61,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		addExternal("assets/data/data-goes-here.txt", "text", "assets/data/data-goes-here.txt");
 		addExternal("assets/data/map1.csv", "text", "assets/data/map1.csv");
+		addExternal("assets/data/waves.xml", "text", "assets/data/waves.xml");
 		addExternal("assets/images/images-go-here.txt", "text", "assets/images/images-go-here.txt");
 		addExternal("assets/images/strawberry.png", "image", "assets/images/strawberry.png");
 		addExternal("assets/images/tileset.png", "image", "assets/images/tileset.png");
@@ -632,6 +635,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 @:keep class __ASSET__assets_data_data_goes_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_data_map1_csv extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_waves_xml extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_strawberry_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_tileset_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -641,6 +645,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
 
 
 

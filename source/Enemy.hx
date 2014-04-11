@@ -9,15 +9,19 @@ import flixel.util.FlxPoint;
 class Enemy extends FlxSprite
 {
 
-	public function new(type:String = "strawberry") 
+	public function new() 
 	{
 		super();
+	}
+	
+	public function resetEnemy(type:String, x:Int, y:Int)
+	{
+		reset(x, y);
 		var size:FlxPoint = getSpriteSize(type);
 		var graphicLoc:String = "assets/images/" + type + ".png";
 		loadGraphic(graphicLoc, true, true, Std.int(size.x), Std.int(size.y));
 		this.animation.add("walk", [0, 1], 5, true);
 		this.animation.play("walk");
-		
 	}
 	
 	public function getSpriteSize(type:String):FlxPoint

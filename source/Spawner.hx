@@ -50,34 +50,32 @@ class Spawner extends FlxTypedGroup<Enemy>
 	
 	private function spawn():Void
 	{		
-		var enemy:Enemy;// = new Enemy();
-		var t:Int = FlxRandom.intRanged(0, 4);
-		if (t == 0)
-		{
-			enemy = new Enemy("banana");
-		}
-		else if(t == 1)
-		{
-			enemy = new Enemy("blueberry");
-		}
-		else if(t == 2)
-		{
-			enemy = new Enemy("peanutbutter");
-		}
-		else if(t == 3)
-		{
-			enemy = new Enemy("rasberry");
-		}
-		else
-		{
-			enemy = new Enemy("strawberry");
-		}
+		var enemy:Enemy = this.recycle(Enemy);// = new Enemy();
 		var startX:Int = START_TILE_X * Reg.PS.TILE_WIDTH;
 		var startY:Int = START_TILE_Y * Reg.PS.TILE_HEIGHT;
 		var endX:Int = END_TILE_X * Reg.PS.TILE_WIDTH;
 		var endY:Int = END_TILE_Y * Reg.PS.TILE_HEIGHT;
-		enemy.x = startX;
-		enemy.y = startY;
+		var t:Int = FlxRandom.intRanged(0, 4);
+		if (t == 0)
+		{
+			enemy.resetEnemy("banana",startX,startY);
+		}
+		else if(t == 1)
+		{
+			enemy.resetEnemy("blueberry",startX,startY);
+		}
+		else if(t == 2)
+		{
+			enemy.resetEnemy("peanutbutter",startX,startY);
+		}
+		else if(t == 3)
+		{
+			enemy.resetEnemy("rasberry",startX,startY);
+		}
+		else
+		{
+			enemy.resetEnemy("strawberry",startX,startY);
+		}
 		var path:Array<FlxPoint> = Reg.PS.tileMap.findPath(new FlxPoint(startX, startY), new FlxPoint(endX, endY));
 		if (path == null) 
 		{

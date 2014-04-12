@@ -1,6 +1,7 @@
 package ;
 import flixel.FlxSprite;
 import flixel.util.FlxPoint;
+import flixel.util.FlxPath;
 
 /**
  * ...
@@ -8,7 +9,7 @@ import flixel.util.FlxPoint;
  */
 class Enemy extends FlxSprite
 {
-
+	public var path:FlxPath;
 	public function new() 
 	{
 		super();
@@ -53,6 +54,16 @@ class Enemy extends FlxSprite
 		else
 		{
 			return new FlxPoint(4, 4);
+		}
+	}
+	
+	override public function update()
+	{
+		super.update();
+		if (path != null && alive && path.finished)
+		{
+			kill();
+			//TODO: Bad stuff to player here.
 		}
 	}
 	

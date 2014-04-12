@@ -51,10 +51,10 @@ class Spawner extends FlxTypedGroup<Enemy>
 	private function spawn():Void
 	{		
 		var enemy:Enemy = this.recycle(Enemy);// = new Enemy();
-		var startX:Int = START_TILE_X * Reg.PS.TILE_WIDTH;
-		var startY:Int = START_TILE_Y * Reg.PS.TILE_HEIGHT;
-		var endX:Int = END_TILE_X * Reg.PS.TILE_WIDTH;
-		var endY:Int = END_TILE_Y * Reg.PS.TILE_HEIGHT;
+		var startX:Int = Std.int(START_TILE_X * Reg.PS.TILE_WIDTH + Reg.PS.TILE_WIDTH/2);
+		var startY:Int = Std.int(START_TILE_Y * Reg.PS.TILE_HEIGHT + Reg.PS.TILE_HEIGHT/2);
+		var endX:Int = Std.int(END_TILE_X * Reg.PS.TILE_WIDTH + Reg.PS.TILE_WIDTH/2);
+		var endY:Int = Std.int(END_TILE_Y * Reg.PS.TILE_HEIGHT + Reg.PS.TILE_HEIGHT/2);
 		var t:Int = FlxRandom.intRanged(0, 4);
 		if (t == 0)
 		{
@@ -81,7 +81,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 		{
 			throw("No valid path! Does the tilemap provide a valid path from start to finish?");
 		}
-		FlxPath.start(enemy, path, 50, 0, true);
+		enemy.path = FlxPath.start(enemy, path, 50, 0, true);
 		add(enemy);
 		
 		cooldown = MAX_COOLDOWN;

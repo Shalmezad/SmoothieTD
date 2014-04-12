@@ -29,13 +29,27 @@ class Spawner extends FlxTypedGroup<Enemy>
 		super();
 		cooldown = MAX_COOLDOWN;
 		WAVES_DATA = Xml.parse(Assets.getText("assets/data/waves.xml"));
+
+		pickWave();
+	}
+	
+	private function pickWave():Void
+	{
+		var waveCount:Int = 0;
 		for (wave in WAVES_DATA.firstElement().elements())
 		{
-			//trace(wave);
-			trace("Name: " + wave.get("name"));
-			trace("Color: " + wave.get("color"));
-			trace("___________________");
+			waveCount++;
 		}
+		var waveChoice:Int = FlxRandom.intRanged(0, waveCount-1);
+		for (wave in WAVES_DATA.firstElement().elements())
+		{
+			if (waveChoice == 0)
+			{
+				currentWave = wave;
+			}
+			waveChoice--;
+		}
+		trace(currentWave);
 	}
 	
 	override public function update():Void
@@ -48,13 +62,40 @@ class Spawner extends FlxTypedGroup<Enemy>
 		}
 	}
 	
+	private function pickEnemy():String
+	{
+		var enemyCount:Int = 0;
+		for (enemy in currentWave.elements())
+		{
+			enemyCount++;
+		}
+		var enemyChoice:Int = FlxRandom.intRanged(0, enemyCount-1);
+		trace(enemyChoice);
+		
+		for (enemy in currentWave.elements())
+		{
+			if (enemyChoice == 0)
+			{
+				trace(enemy);
+				trace(enemy.get("type"));
+				trace("____________________");
+				return enemy.get("type");
+			}
+			enemyChoice--;
+		}
+		return "";
+	}
+	
 	private function spawn():Void
 	{		
 		var enemy:Enemy = this.recycle(Enemy);// = new Enemy();
 		var startX:Int = Std.int(START_TILE_X * Reg.PS.TILE_WIDTH + Reg.PS.TILE_WIDTH/2);
 		var startY:Int = Std.int(START_TILE_Y * Reg.PS.TILE_HEIGHT + Reg.PS.TILE_HEIGHT/2);
 		var endX:Int = Std.int(END_TILE_X * Reg.PS.TILE_WIDTH + Reg.PS.TILE_WIDTH/2);
-		var endY:Int = Std.int(END_TILE_Y * Reg.PS.TILE_HEIGHT + Reg.PS.TILE_HEIGHT/2);
+		var endY:Int = Std.int(END_TILE_Y * Reg.PS.TILE_HEIGHT + Reg.PS.TILE_HEIGHT / 2);
+		var enemyType:String = pickEnemy();
+		enemy.resetEnemy(enemyType, startX, startY);
+		/*
 		var t:Int = FlxRandom.intRanged(0, 4);
 		if (t == 0)
 		{
@@ -76,6 +117,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 		{
 			enemy.resetEnemy("strawberry",startX,startY);
 		}
+		*/
 		var path:Array<FlxPoint> = Reg.PS.tileMap.findPath(new FlxPoint(startX, startY), new FlxPoint(endX, endY));
 		if (path == null) 
 		{

@@ -19,6 +19,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 	var END_TILE_Y:Int = 5;
 	
 	private var MAX_COOLDOWN = 50;
+	private var numToSpawn:Int;
 	private var cooldown:Int;
 	
 	private var WAVES_DATA:Xml;
@@ -28,6 +29,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 	{
 		super();
 		cooldown = MAX_COOLDOWN;
+		numToSpawn = 12;
 		WAVES_DATA = Xml.parse(Assets.getText("assets/data/waves.xml"));
 
 		pickWave();
@@ -56,7 +58,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 	{
 		super.update();
 		cooldown--;
-		if (cooldown <= 0)
+		if (cooldown <= 0 && numToSpawn > 0)
 		{
 			spawn();
 		}
@@ -76,9 +78,6 @@ class Spawner extends FlxTypedGroup<Enemy>
 		{
 			if (enemyChoice == 0)
 			{
-				trace(enemy);
-				trace(enemy.get("type"));
-				trace("____________________");
 				return enemy.get("type");
 			}
 			enemyChoice--;
@@ -95,29 +94,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 		var endY:Int = Std.int(END_TILE_Y * Reg.PS.TILE_HEIGHT + Reg.PS.TILE_HEIGHT / 2);
 		var enemyType:String = pickEnemy();
 		enemy.resetEnemy(enemyType, startX, startY);
-		/*
-		var t:Int = FlxRandom.intRanged(0, 4);
-		if (t == 0)
-		{
-			enemy.resetEnemy("banana",startX,startY);
-		}
-		else if(t == 1)
-		{
-			enemy.resetEnemy("blueberry",startX,startY);
-		}
-		else if(t == 2)
-		{
-			enemy.resetEnemy("peanutbutter",startX,startY);
-		}
-		else if(t == 3)
-		{
-			enemy.resetEnemy("rasberry",startX,startY);
-		}
-		else
-		{
-			enemy.resetEnemy("strawberry",startX,startY);
-		}
-		*/
+
 		var path:Array<FlxPoint> = Reg.PS.tileMap.findPath(new FlxPoint(startX, startY), new FlxPoint(endX, endY));
 		if (path == null) 
 		{
@@ -125,7 +102,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 		}
 		enemy.path = FlxPath.start(enemy, path, 50, 0, true);
 		add(enemy);
-		
+		numToSpawn--;
 		cooldown = MAX_COOLDOWN;
 	}
 	

@@ -11,6 +11,14 @@ import openfl.Assets;
  * ...
  * @author Shalmezad
  */
+
+enum SpawnerState {
+	PRESPAWN;
+	SPAWNING;
+	WAITING_FOR_DEAD;
+	COMPLETE;
+}
+	
 class Spawner extends FlxTypedGroup<Enemy>
 {
 	var START_TILE_X:Int = 0;
@@ -18,9 +26,11 @@ class Spawner extends FlxTypedGroup<Enemy>
 	var END_TILE_X:Int = 15;
 	var END_TILE_Y:Int = 5;
 	
+	private var WAVE_COOLDOWN = 60 * 3;
 	private var MAX_COOLDOWN = 50;
 	private var numToSpawn:Int;
 	private var cooldown:Int;
+	public var currentState:SpawnerState;
 	
 	private var WAVES_DATA:Xml;
 	private var currentWave:Xml;
@@ -28,8 +38,9 @@ class Spawner extends FlxTypedGroup<Enemy>
 	public function new() 
 	{
 		super();
-		cooldown = MAX_COOLDOWN;
+		cooldown = WAVE_COOLDOWN;
 		numToSpawn = 12;
+		currentState = PRESPAWN;
 		WAVES_DATA = Xml.parse(Assets.getText("assets/data/waves.xml"));
 
 		pickWave();
@@ -54,14 +65,42 @@ class Spawner extends FlxTypedGroup<Enemy>
 		trace(currentWave);
 	}
 	
+	private function startWave():Void
+	{
+		pickWave();
+		currentState = SPAWNING;
+		cooldown = MAX_COOLDOWN;
+		numToSpawn = 12;
+	}
+	
 	override public function update():Void
 	{
 		super.update();
-		cooldown--;
-		if (cooldown <= 0 && numToSpawn > 0)
+		if (currentState == PRESPAWN)
 		{
-			spawn();
+			cooldown--;
+			if (cooldown == 0)
+			{
+				startWave();
+			}
 		}
+		else if (currentState == SPAWNING)
+		{
+			cooldown--;
+			if (cooldown <= 0 && numToSpawn > 0)
+			{
+				spawn();
+			}
+		}
+		else if (currentState == WAITING_FOR_DEAD)
+		{
+			if (countLiving() == 0)
+			{
+				currentState = COMPLETE;
+				cooldown = WAVE_COOLDOWN;
+			}
+		}
+		
 	}
 	
 	private function pickEnemy():String
@@ -104,6 +143,10 @@ class Spawner extends FlxTypedGroup<Enemy>
 		add(enemy);
 		numToSpawn--;
 		cooldown = MAX_COOLDOWN;
+		if (numToSpawn == 0)
+		{
+			currentState = WAITING_FOR_DEAD;
+		}
 	}
 	
 	public function getNearest(X:Float, Y:Float, range:Int):Enemy

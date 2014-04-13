@@ -96,6 +96,10 @@ class PlayState extends FlxState
 	private function handleLogic():Void
 	{
 		FlxG.overlap(bullets, spawner, bulletEnemyOverlap);
+		if (spawner.currentState == COMPLETE)
+		{
+			spawner.currentState = PRESPAWN;
+		}
 	}
 	
 	private function bulletEnemyOverlap(bullet:Dynamic, enemy:Dynamic):Void

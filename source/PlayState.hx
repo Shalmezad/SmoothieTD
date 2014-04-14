@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
@@ -33,14 +34,19 @@ class PlayState extends FlxState
 	public var tileMap:FlxTilemap;
 	
 	var towers:FlxTypedGroup<Tower>;
+	public var selectedTower:Tower;
 	public var bullets:FlxTypedGroup<Bullet>;
 	
 	public var spawner:Spawner;
+	
+	public var lives:Int;
 	
 	override public function create():Void
 	{
 		super.create();
 		Reg.PS = this;
+		
+		lives = 3;
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
@@ -83,11 +89,11 @@ class PlayState extends FlxState
 			var tileY:Int = Std.int(FlxG.mouse.y / TILE_HEIGHT);
 			if (mouse_mode == MODE_BUILD)
 			{
-				var success:Bool = attemptBuild(tileX, tileY);
+				var success:Bool = attemptBuild(tileX, tileY,FlxG.mouse.x, FlxG.mouse.y);
 				if (!success)
 				{
 					//we didn't build. Attempt selection.
-					attemptSelection(tileX, tileY);
+					attemptSelection(FlxG.mouse.x, FlxG.mouse.y);
 				}
 			}
 		}
@@ -108,10 +114,11 @@ class PlayState extends FlxState
 		bullet.kill();
 	}
 	
-	private function attemptBuild(tileX:Int, tileY:Int):Bool
+	private function attemptBuild(tileX:Int, tileY:Int, mX:Float, mY:Float):Bool
 	{
 		//Check to see if the tile is BUILDABLE.
-		if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE)
+		var mouseArea:FlxSprite = new FlxSprite(mX, mY);
+		if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE && !FlxG.overlap(mouseArea,towers))
 		{
 			//Add the tower here.
 			var tower:Tower = new Tower();
@@ -123,9 +130,38 @@ class PlayState extends FlxState
 		return false;
 	}
 	
-	private function attemptSelection(tileX:Int, tileY:Int):Bool
+	private function attemptSelection(mX:Float, mY:Float):Bool
+	{
+		var mouseArea:FlxSprite = new FlxSprite(mX, mY);
+		return FlxG.overlap(mouseArea,towers,selectTower);
+	}
+	
+	public function selectTower(a:FlxObject, b:FlxObject)
+	{
+		if (Std.is(a, Tower))
+		{
+			selectedTower = cast(a,Tower);
+		}
+		else
+		{
+			selectedTower = cast(b,Tower);
+		}
+	}
+	
+	public function killLife():Void
+	{
+		if (lives > 0)
+		{
+			lives--;
+			if (lives == 0)
+			{
+				//GAME OVER
+			}
+		}
+	}
+	
+	private function gameOver():Void
 	{
 		
-		return false;
 	}
 }

@@ -62,7 +62,6 @@ class Spawner extends FlxTypedGroup<Enemy>
 			}
 			waveChoice--;
 		}
-		trace(currentWave);
 	}
 	
 	private function startWave():Void
@@ -111,7 +110,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 			enemyCount++;
 		}
 		var enemyChoice:Int = FlxRandom.intRanged(0, enemyCount-1);
-		trace(enemyChoice);
+		//trace(enemyChoice);
 		
 		for (enemy in currentWave.elements())
 		{

@@ -64,6 +64,7 @@ class Enemy extends FlxSprite
 		{
 			kill();
 			//TODO: Bad stuff to player here.
+			Reg.PS.killLife();
 		}
 	}
 	

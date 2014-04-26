@@ -41,12 +41,15 @@ class PlayState extends FlxState
 	
 	public var lives:Int;
 	
+	public var currentWave:Int;
+	
 	override public function create():Void
 	{
 		super.create();
 		Reg.PS = this;
 		
 		lives = 3;
+		currentWave = 0;
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();

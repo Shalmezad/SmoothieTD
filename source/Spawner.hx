@@ -70,6 +70,7 @@ class Spawner extends FlxTypedGroup<Enemy>
 		currentState = SPAWNING;
 		cooldown = MAX_COOLDOWN;
 		numToSpawn = 12;
+		Reg.PS.currentWave += 1;
 	}
 	
 	override public function update():Void

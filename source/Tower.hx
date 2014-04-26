@@ -10,13 +10,13 @@ import flixel.util.FlxMath;
  */
 class Tower extends FlxSprite
 {
-	private var COOLDOWN_MAX:Int = 10;
+	private var fire_delay:Int = 40;
 	private var cooldown:Int;
 	private var range:Int = 40;
 	public function new() 
 	{
 		super();
-		cooldown = COOLDOWN_MAX;
+		cooldown = fire_delay;
 		loadGraphic("assets/images/tower1.png");
 	}
 	
@@ -42,7 +42,7 @@ class Tower extends FlxSprite
 	
 	private function shoot(enemy:Enemy):Void
 	{
-		cooldown = COOLDOWN_MAX;
+		cooldown = fire_delay;
 		var bullet:Bullet = Reg.PS.bullets.recycle(Bullet);
 		bullet.init(x, y, enemy);
 	}

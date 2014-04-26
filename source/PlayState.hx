@@ -32,6 +32,7 @@ class PlayState extends FlxState
 	var TILE_BUILDABLE:Int = 2;
 	
 	public var tileMap:FlxTilemap;
+	private var gui:GUI;
 	
 	var towers:FlxTypedGroup<Tower>;
 	public var selectedTower:Tower;
@@ -43,6 +44,8 @@ class PlayState extends FlxState
 	
 	public var currentWave:Int;
 	
+	public var currentScore:Int;
+	
 	override public function create():Void
 	{
 		super.create();
@@ -50,18 +53,21 @@ class PlayState extends FlxState
 		
 		lives = 3;
 		currentWave = 0;
+		currentScore = 0;
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
 		towers = new FlxTypedGroup<Tower>();
 		bullets = new FlxTypedGroup<Bullet>();
 		spawner = new Spawner();
+		gui = new GUI();
 		
 		tileMap.loadMap(Assets.getText("assets/data/map1.csv"), "assets/images/tileset.png",TILE_WIDTH,TILE_HEIGHT,0,0,1,2);
 		add(tileMap);
 		add(towers);
 		add(bullets);
 		add(spawner);
+		add(gui);
 		
 		var brandRect:FlxSprite = new FlxSprite(0, FlxG.height - 20);
 		brandRect.makeGraphic(FlxG.width, 20, 0xFF000033);
@@ -114,6 +120,10 @@ class PlayState extends FlxState
 	private function bulletEnemyOverlap(bullet:Dynamic, enemy:Dynamic):Void
 	{
 		enemy.hurt(1);
+		if (!enemy.alive)
+		{
+			currentScore += currentWave * 100;
+		}
 		bullet.kill();
 	}
 	

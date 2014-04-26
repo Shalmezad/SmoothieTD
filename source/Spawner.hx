@@ -22,9 +22,9 @@ enum SpawnerState {
 class Spawner extends FlxTypedGroup<Enemy>
 {
 	var START_TILE_X:Int = 0;
-	var START_TILE_Y:Int = 2;
+	var START_TILE_Y:Int = 3;
 	var END_TILE_X:Int = 15;
-	var END_TILE_Y:Int = 5;
+	var END_TILE_Y:Int = 6;
 	
 	private var WAVE_COOLDOWN = 60 * 3;
 	private var MAX_COOLDOWN = 50;

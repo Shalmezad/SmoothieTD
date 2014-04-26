@@ -12,6 +12,7 @@ class GUI extends FlxGroup
 {
 	private var scoreText:FlxText;
 	private var waveText:FlxText;
+	private var moneyText:FlxText;
 	private var livesText:FlxText;
 	private var guiRect:FlxSprite;
 	
@@ -31,7 +32,11 @@ class GUI extends FlxGroup
 		livesText.color = 0xFF00DDAA;
 		add(livesText);
 		
-		scoreText = new FlxText(110, 5, 200, "Score: 0");
+		moneyText = new FlxText(110, 5, 50, "Money: 0");
+		moneyText.color = 0xFF00DDAA;
+		add(moneyText);
+		
+		scoreText = new FlxText(165, 5, 200, "Score: 0");
 		scoreText.color = 0xFF00DDAA;
 		add(scoreText);
 		
@@ -40,8 +45,9 @@ class GUI extends FlxGroup
 	override public function update():Void
 	{
 		super.update();
-		scoreText.text = "Score: " + Reg.PS.currentScore;
 		waveText.text = "Wave: " + Reg.PS.currentWave;
 		livesText.text = "Lives: " + Reg.PS.lives;
+		moneyText.text = "Money: " + Reg.PS.money;
+		scoreText.text = "Score: " + Reg.PS.currentScore;
 	}
 }

@@ -46,6 +46,8 @@ class PlayState extends FlxState
 	
 	public var currentScore:Int;
 	
+	public var money:Int;
+	
 	override public function create():Void
 	{
 		super.create();
@@ -54,6 +56,7 @@ class PlayState extends FlxState
 		lives = 3;
 		currentWave = 0;
 		currentScore = 0;
+		money = 0;
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
@@ -123,6 +126,7 @@ class PlayState extends FlxState
 		if (!enemy.alive)
 		{
 			currentScore += currentWave * 100;
+			money += currentWave;
 		}
 		bullet.kill();
 	}

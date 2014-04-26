@@ -14,27 +14,29 @@ import flixel.util.FlxPath;
 import openfl.Assets;
 import flixel.group.FlxTypedGroup;
 
+enum MouseMode {
+	MODE_BUILD; //attempting to build a tower
+	MODE_SELECTED; //selected a tower (to upgrade/sell)
+	MODE_NONE; //No extra.
+}
+	
 /**
- * A FlxState which can be used for the actual gameplay.
- */
+* A FlxState which can be used for the actual gameplay.
+*/
 class PlayState extends FlxState
 {
 
 	public var TILE_WIDTH:Int = 20;
 	public var TILE_HEIGHT:Int = 20;
 	
-	//TODO: Convert modes to enum if haXe allows it.
-	var MODE_BUILD:Int = 1;		//attempting to build a tower
-	var MODE_SELECTED:Int = 2;	//selected a tower (to upgrade/sell)
-	var MODE_NONE:Int = 3; 		//No extra.
-	var mouse_mode:Int;
+	public var mouse_mode:MouseMode;
 	
 	var TILE_BUILDABLE:Int = 2;
 	
 	public var tileMap:FlxTilemap;
 	private var gui:GUI;
 	
-	var towers:FlxTypedGroup<Tower>;
+	public var towers:FlxTypedGroup<Tower>;
 	public var selectedTower:Tower;
 	public var bullets:FlxTypedGroup<Bullet>;
 	
@@ -56,7 +58,7 @@ class PlayState extends FlxState
 		lives = 3;
 		currentWave = 0;
 		currentScore = 0;
-		money = 0;
+		money = 10;
 		
 		mouse_mode = MODE_BUILD;
 		tileMap = new FlxTilemap();
@@ -92,13 +94,22 @@ class PlayState extends FlxState
 			//get the tileX/Y.
 			var tileX:Int = Std.int(FlxG.mouse.x / TILE_WIDTH);
 			var tileY:Int = Std.int(FlxG.mouse.y / TILE_HEIGHT);
+			//ignore top/bottom
+			if (tileY >= 11 || tileY <=0)
+			{
+				return;
+			}
 			if (mouse_mode == MODE_BUILD)
 			{
 				var success:Bool = attemptBuild(tileX, tileY,FlxG.mouse.x, FlxG.mouse.y);
 				if (!success)
 				{
 					//we didn't build. Attempt selection.
-					attemptSelection(FlxG.mouse.x, FlxG.mouse.y);
+					success = attemptSelection(FlxG.mouse.x, FlxG.mouse.y);
+					if (!success)
+					{
+						mouse_mode = MODE_NONE;
+					}
 				}
 			}
 		}
@@ -130,15 +141,22 @@ class PlayState extends FlxState
 		var mouseArea:FlxSprite = new FlxSprite(mX, mY);
 		if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE && !FlxG.overlap(mouseArea,towers))
 		{
-			//Add the tower here.
-			var tower:Tower = new Tower();
-			tower.x = tileX * TILE_WIDTH;
-			tower.y = tileY * TILE_HEIGHT;
-			towers.add(tower);
-			return true;
+			//Make sure we have the money for it...
+			if (money > GameCalculations.towerCost())
+			{
+				money -= GameCalculations.towerCost();
+				//Add the tower here.
+				var tower:Tower = new Tower();
+				tower.x = tileX * TILE_WIDTH;
+				tower.y = tileY * TILE_HEIGHT;
+				towers.add(tower);
+				return true;
+			}
 		}
 		return false;
 	}
+	
+
 	
 	private function attemptSelection(mX:Float, mY:Float):Bool
 	{
@@ -156,6 +174,7 @@ class PlayState extends FlxState
 		{
 			selectedTower = cast(b,Tower);
 		}
+		mouse_mode = MODE_SELECTED;
 	}
 	
 	public function killLife():Void

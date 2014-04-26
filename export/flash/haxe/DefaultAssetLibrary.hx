@@ -41,6 +41,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/data/map1.csv", __ASSET__assets_data_map1_csv);
 		type.set ("assets/data/map1.csv", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/menumap.csv", __ASSET__assets_data_menumap_csv);
+		type.set ("assets/data/menumap.csv", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/data/waves.xml", __ASSET__assets_data_waves_xml);
 		type.set ("assets/data/waves.xml", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/images/banana.png", __ASSET__assets_images_banana_png);
@@ -69,6 +71,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		addExternal("assets/data/data-goes-here.txt", "text", "assets/data/data-goes-here.txt");
 		addExternal("assets/data/map1.csv", "text", "assets/data/map1.csv");
+		addExternal("assets/data/menumap.csv", "text", "assets/data/menumap.csv");
 		addExternal("assets/data/waves.xml", "text", "assets/data/waves.xml");
 		addExternal("assets/images/banana.png", "image", "assets/images/banana.png");
 		addExternal("assets/images/blueberry.png", "image", "assets/images/blueberry.png");
@@ -647,6 +650,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 @:keep class __ASSET__assets_data_data_goes_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_data_map1_csv extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_menumap_csv extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_data_waves_xml extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_banana_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_blueberry_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -661,6 +665,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
 
 
 

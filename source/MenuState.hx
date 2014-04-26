@@ -27,15 +27,24 @@ class MenuState extends FlxState
 		tileMap.loadMap(Assets.getText("assets/data/menumap.csv"), "assets/images/tileset.png",TILE_WIDTH,TILE_HEIGHT,0,0,1,2);
 		add(tileMap);
 		
+		var brandRect:FlxSprite = new FlxSprite(0, FlxG.height - 20);
+		brandRect.makeGraphic(FlxG.width, 20, 0xFF000033);
+		add(brandRect);
+		var branding:FlxText = new FlxText(5, FlxG.height - 15, 200, "Shalmezad");
+		branding.color = 0xFF00DDAA;
+		add(branding);
+		
 		//Add some branding text
-		var brandText:FlxText = new FlxText(20, 20, 200, "Smoothie TD", 24);
-		var brandText2:FlxText = new FlxText(21, 21, 200, "Smoothie TD", 24);
-		brandText.color = 0xFF22EEEE;
-		brandText2.color = 0xFF000000;
-		add(brandText2);
+		var brandRect2:FlxSprite = new FlxSprite(0, 50);
+		brandRect2.makeGraphic(FlxG.width, 50, 0xFF000033);
+		add(brandRect2);
+		var brandText:FlxText = new FlxText(0, 60, FlxG.width, "Smoothie TD", 24);
+		brandText.alignment = "center";
+		brandText.color = 0xFF00DDAA;
 		add(brandText);
 		
-		var startBtn:FlxButton = new FlxButton(50, 100, "Start Game!", startGame);
+		var startBtn:FlxButton = new FlxButton(50, 120, "Start Game!", startGame);
+		startBtn.x = FlxG.width / 2 - startBtn.width / 2;
 		add(startBtn);
 	}
 	

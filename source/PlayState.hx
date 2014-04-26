@@ -156,12 +156,13 @@ class PlayState extends FlxState
 			if (lives == 0)
 			{
 				//GAME OVER
+				gameOver();
 			}
 		}
 	}
 	
 	private function gameOver():Void
 	{
-		
+		FlxG.switchState(new MenuState());
 	}
 }

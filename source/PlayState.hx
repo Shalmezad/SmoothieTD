@@ -71,13 +71,6 @@ class PlayState extends FlxState
 		add(bullets);
 		add(spawner);
 		add(gui);
-		
-		var brandRect:FlxSprite = new FlxSprite(0, FlxG.height - 20);
-		brandRect.makeGraphic(FlxG.width, 20, 0xFF000033);
-		add(brandRect);
-		var branding:FlxText = new FlxText(5, FlxG.height - 15, 200, "Shalmezad");
-		branding.color = 0xFF00DDAA;
-		add(branding);
 	}
 	
 	override public function destroy():Void

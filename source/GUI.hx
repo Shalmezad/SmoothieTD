@@ -14,15 +14,17 @@ class GUI extends FlxGroup
 	private var waveText:FlxText;
 	private var moneyText:FlxText;
 	private var livesText:FlxText;
-	private var guiRect:FlxSprite;
+	
+	private var topRect:FlxSprite;
+	private var bottomRect:FlxSprite;
 	
 	public function new() 
 	{
 		super();
 		
-		guiRect = new FlxSprite(0, 0);
-		guiRect.makeGraphic(FlxG.width, 20, 0xFF000033);
-		add(guiRect);
+		topRect = new FlxSprite(0, 0);
+		topRect.makeGraphic(FlxG.width, 20, 0xFF000033);
+		add(topRect);
 		
 		waveText = new FlxText(5, 5, 50, "Wave: 0");
 		waveText.color = 0xFF00DDAA;
@@ -40,6 +42,13 @@ class GUI extends FlxGroup
 		scoreText.color = 0xFF00DDAA;
 		add(scoreText);
 		
+		bottomRect = new FlxSprite(0, FlxG.height - 20);
+		bottomRect.makeGraphic(FlxG.width, 20, 0xFF000033);
+		add(bottomRect);
+		
+		var branding:FlxText = new FlxText(5, FlxG.height - 15, 200, "Shalmezad");
+		branding.color = 0xFF00DDAA;
+		add(branding);
 	}
 	
 	override public function update():Void

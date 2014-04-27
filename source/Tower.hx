@@ -30,7 +30,7 @@ class Tower extends FlxSprite
 		if (cooldown <= 0)
 		{
 			//see if there's an enemy nearby to shoot.
-			var enemy:Enemy = Reg.PS.spawner.getNearest(x,y,GameCalculations.towerRange(this));
+			var enemy:Enemy = Reg.PS.spawner.getNearest(x + width/2, y + height/2,GameCalculations.towerRange(this));
 			if (enemy != null)
 			{
 				shoot(enemy);
@@ -44,7 +44,7 @@ class Tower extends FlxSprite
 	{
 		cooldown = fire_delay;
 		var bullet:Bullet = Reg.PS.bullets.recycle(Bullet);
-		bullet.init(x, y, enemy);
+		bullet.init(x + width/2, y + height/2, enemy);
 	}
 	
 

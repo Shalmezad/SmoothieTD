@@ -85,7 +85,7 @@ class GUI extends FlxGroup
 		buildButton.scale.y = .8;
 		add(buildButton);
 		
-		upRangeButton = new FlxButton(70, FlxG.height - 20, "+ Range", increaseRange);
+		upRangeButton = new FlxButton(70, FlxG.height - 20, "+ Range: 0000", increaseRange);
 		upRangeButton.scale.x = .8;
 		upRangeButton.scale.y = .8;
 		add(upRangeButton);

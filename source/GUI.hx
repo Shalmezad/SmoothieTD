@@ -26,6 +26,8 @@ class GUI extends FlxGroup
 	private var branding:FlxText;
 	
 	private var buildButton:FlxButton;
+	private var upRangeButton:FlxButton;
+	
 	private var selector:FlxSprite;
 	
 	public function new() 
@@ -82,6 +84,11 @@ class GUI extends FlxGroup
 		buildButton.scale.x = .8;
 		buildButton.scale.y = .8;
 		add(buildButton);
+		
+		upRangeButton = new FlxButton(70, FlxG.height - 20, "+ Range", increaseRange);
+		upRangeButton.scale.x = .8;
+		upRangeButton.scale.y = .8;
+		add(upRangeButton);
 	}
 	
 	private function addOther():Void
@@ -102,6 +109,7 @@ class GUI extends FlxGroup
 			costText.visible = true;
 			buildButton.visible = false;
 			selector.visible = false;
+			upRangeButton.visible = false;
 		}
 		else if (Reg.PS.mouse_mode == MODE_SELECTED)
 		{
@@ -110,12 +118,15 @@ class GUI extends FlxGroup
 			selector.visible = true;
 			selector.x = Reg.PS.selectedTower.x;
 			selector.y = Reg.PS.selectedTower.y;
+			upRangeButton.visible = true;
+			upRangeButton.label.text = "+ Range: " + GameCalculations.towerRangeCost(Reg.PS.selectedTower);
 		}
 		else
 		{
 			costText.visible = false;
 			buildButton.visible = true;
 			selector.visible = false;
+			upRangeButton.visible = false;
 		}
 
 	}
@@ -133,5 +144,15 @@ class GUI extends FlxGroup
 	private function switchToBuild():Void
 	{
 		Reg.PS.mouse_mode = MODE_BUILD;
+	}
+	
+	private function increaseRange():Void
+	{
+		var cost:Int = GameCalculations.towerRangeCost(Reg.PS.selectedTower);
+		if (Reg.PS.money >= cost)
+		{
+			Reg.PS.money -= cost;
+			Reg.PS.selectedTower.rangeLevel += 1;
+		}
 	}
 }

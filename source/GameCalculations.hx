@@ -67,4 +67,12 @@ class GameCalculations
 		return 25 * (tower.rangeLevel+1);
 	}
 	
+	/**
+	 * How much a range level for a tower will cost
+	 * @return cost for range level for a tower
+	 */
+	public static function towerRangeCost(tower:Tower):Int
+	{
+		return Std.int(Math.pow(2, tower.rangeLevel+2));
+	}
 }

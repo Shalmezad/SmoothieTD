@@ -158,7 +158,7 @@ class PlayState extends FlxState
 		if (tileMap.getTile(tileX, tileY) == TILE_BUILDABLE && !FlxG.overlap(mouseArea,towers))
 		{
 			//Make sure we have the money for it...
-			if (money > GameCalculations.towerCost())
+			if (money >= GameCalculations.towerCost())
 			{
 				money -= GameCalculations.towerCost();
 				//Add the tower here.

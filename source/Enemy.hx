@@ -22,14 +22,11 @@ class Enemy extends FlxSprite
 		loadGraphic(graphicLoc, true, true, Std.int(size.x), Std.int(size.y));
 		this.animation.add("walk", [0, 1], 5, true);
 		this.animation.play("walk");
-		this.health = getHealthForWave(Reg.PS.currentWave);
+		this.health = GameCalculations.mobSpawnHealth();
 		reset(x - this.width/2, y - this.height/2);
 	}
 	
-	public static function getHealthForWave(wave:Int)
-	{
-		return wave;
-	}
+
 	
 	public function getSpriteSize(type:String):FlxPoint
 	{

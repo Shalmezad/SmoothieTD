@@ -129,8 +129,8 @@ class PlayState extends FlxState
 		enemy.hurt(1);
 		if (!enemy.alive)
 		{
-			currentScore += currentWave * 100;
-			money += currentWave;
+			currentScore += GameCalculations.mobScore();
+			money += GameCalculations.mobMoney();
 		}
 		bullet.kill();
 	}

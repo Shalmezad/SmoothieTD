@@ -39,7 +39,6 @@ class Spawner extends FlxTypedGroup<Enemy>
 	{
 		super();
 		cooldown = WAVE_COOLDOWN;
-		numToSpawn = 12;
 		currentState = PRESPAWN;
 		WAVES_DATA = Xml.parse(Assets.getText("assets/data/waves.xml"));
 
@@ -69,8 +68,8 @@ class Spawner extends FlxTypedGroup<Enemy>
 		pickWave();
 		currentState = SPAWNING;
 		cooldown = MAX_COOLDOWN;
-		numToSpawn = 12;
 		Reg.PS.currentWave += 1;
+		numToSpawn = GameCalculations.mobsToSpawn();
 	}
 	
 	override public function update():Void

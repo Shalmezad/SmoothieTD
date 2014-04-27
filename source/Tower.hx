@@ -13,6 +13,7 @@ class Tower extends FlxSprite
 	private var fire_delay:Int = 40;
 	private var cooldown:Int;
 	public var rangeLevel:Int = 0;
+	public var speedLevel:Int = 0;
 	public function new() 
 	{
 		super();
@@ -42,7 +43,7 @@ class Tower extends FlxSprite
 	
 	private function shoot(enemy:Enemy):Void
 	{
-		cooldown = fire_delay;
+		cooldown = GameCalculations.towerDelay(this);
 		var bullet:Bullet = Reg.PS.bullets.recycle(Bullet);
 		bullet.init(x + width/2, y + height/2, enemy);
 	}

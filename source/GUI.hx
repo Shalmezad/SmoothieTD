@@ -27,6 +27,7 @@ class GUI extends FlxGroup
 	
 	private var buildButton:FlxButton;
 	private var upRangeButton:FlxButton;
+	private var upSpeedButton:FlxButton;
 	
 	private var selector:FlxSprite;
 	
@@ -89,6 +90,11 @@ class GUI extends FlxGroup
 		upRangeButton.scale.x = .8;
 		upRangeButton.scale.y = .8;
 		add(upRangeButton);
+		
+		upSpeedButton = new FlxButton(140, FlxG.height - 20, "+ Speed: 0000", increaseSpeed);
+		upSpeedButton.scale.x = .8;
+		upSpeedButton.scale.y = .8;
+		add(upSpeedButton);
 	}
 	
 	private function addOther():Void
@@ -110,6 +116,7 @@ class GUI extends FlxGroup
 			buildButton.visible = false;
 			selector.visible = false;
 			upRangeButton.visible = false;
+			upSpeedButton.visible = false;
 		}
 		else if (Reg.PS.mouse_mode == MODE_SELECTED)
 		{
@@ -120,6 +127,8 @@ class GUI extends FlxGroup
 			selector.y = Reg.PS.selectedTower.y;
 			upRangeButton.visible = true;
 			upRangeButton.label.text = "+ Range: " + GameCalculations.towerRangeCost(Reg.PS.selectedTower);
+			upSpeedButton.visible = true;
+			upSpeedButton.label.text = "+ Speed: " + GameCalculations.towerSpeedCost(Reg.PS.selectedTower);
 		}
 		else
 		{
@@ -127,6 +136,7 @@ class GUI extends FlxGroup
 			buildButton.visible = true;
 			selector.visible = false;
 			upRangeButton.visible = false;
+			upSpeedButton.visible = false;
 		}
 
 	}
@@ -153,6 +163,17 @@ class GUI extends FlxGroup
 		{
 			Reg.PS.money -= cost;
 			Reg.PS.selectedTower.rangeLevel += 1;
+		}
+	}
+	
+	
+	private function increaseSpeed():Void
+	{
+		var cost:Int = GameCalculations.towerSpeedCost(Reg.PS.selectedTower);
+		if (Reg.PS.money >= cost)
+		{
+			Reg.PS.money -= cost;
+			Reg.PS.selectedTower.speedLevel += 1;
 		}
 	}
 }

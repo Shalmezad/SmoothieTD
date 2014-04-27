@@ -68,11 +68,29 @@ class GameCalculations
 	}
 	
 	/**
+	 * How much delay a tower has between shots
+	 * @return delay in frames for a tower shooting
+	 */
+	public static function towerDelay(tower:Tower):Int
+	{
+		return Std.int(Math.max(50 - Std.int(Math.pow(2, tower.speedLevel)),5));
+	}
+	
+	/**
 	 * How much a range level for a tower will cost
 	 * @return cost for range level for a tower
 	 */
 	public static function towerRangeCost(tower:Tower):Int
 	{
 		return Std.int(Math.pow(2, tower.rangeLevel+2));
+	}
+	
+	/**
+	 * How much a speed level for a tower will cost
+	 * @return cost for speed level for a tower
+	 */
+	public static function towerSpeedCost(tower:Tower):Int
+	{
+		return Std.int(Math.pow(2, tower.speedLevel+2));
 	}
 }

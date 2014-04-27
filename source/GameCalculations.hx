@@ -58,4 +58,13 @@ class GameCalculations
 		return 12;
 	}
 	
+	/**
+	 * How much range a tower has
+	 * @return Range in pixels for a tower
+	 */
+	public static function towerRange(tower:Tower):Int
+	{
+		return 25 * (tower.rangeLevel+1);
+	}
+	
 }

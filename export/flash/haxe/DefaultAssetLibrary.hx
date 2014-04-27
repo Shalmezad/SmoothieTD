@@ -55,6 +55,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/peanutbutter.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/images/rasberry.png", __ASSET__assets_images_rasberry_png);
 		type.set ("assets/images/rasberry.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/images/selector.png", __ASSET__assets_images_selector_png);
+		type.set ("assets/images/selector.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/images/strawberry.png", __ASSET__assets_images_strawberry_png);
 		type.set ("assets/images/strawberry.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/images/tileset.png", __ASSET__assets_images_tileset_png);
@@ -78,6 +80,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		addExternal("assets/images/images-go-here.txt", "text", "assets/images/images-go-here.txt");
 		addExternal("assets/images/peanutbutter.png", "image", "assets/images/peanutbutter.png");
 		addExternal("assets/images/rasberry.png", "image", "assets/images/rasberry.png");
+		addExternal("assets/images/selector.png", "image", "assets/images/selector.png");
 		addExternal("assets/images/strawberry.png", "image", "assets/images/strawberry.png");
 		addExternal("assets/images/tileset.png", "image", "assets/images/tileset.png");
 		addExternal("assets/images/tower1.png", "image", "assets/images/tower1.png");
@@ -657,6 +660,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_peanutbutter_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_rasberry_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_selector_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_strawberry_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_tileset_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_tower1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -665,6 +669,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
 
 
 

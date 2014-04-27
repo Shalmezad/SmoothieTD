@@ -112,6 +112,22 @@ class PlayState extends FlxState
 					}
 				}
 			}
+			else if (mouse_mode == MODE_SELECTED)
+			{
+				var success:Bool = attemptSelection(FlxG.mouse.x, FlxG.mouse.y);
+				if (!success)
+				{
+					mouse_mode = MODE_NONE;
+				}
+			}
+			else if (mouse_mode == MODE_NONE)
+			{
+				var success:Bool = attemptSelection(FlxG.mouse.x, FlxG.mouse.y);
+				if (!success)
+				{
+					mouse_mode = MODE_NONE;
+				}
+			}
 		}
 	}
 	

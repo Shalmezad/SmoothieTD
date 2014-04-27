@@ -26,6 +26,7 @@ class GUI extends FlxGroup
 	private var branding:FlxText;
 	
 	private var buildButton:FlxButton;
+	private var selector:FlxSprite;
 	
 	public function new() 
 	{
@@ -34,6 +35,7 @@ class GUI extends FlxGroup
 		addRects();
 		addText();
 		addButtons();
+		addOther();
 	}
 	
 	private function addRects():Void
@@ -82,6 +84,14 @@ class GUI extends FlxGroup
 		add(buildButton);
 	}
 	
+	private function addOther():Void
+	{
+		selector = new FlxSprite();
+		selector.loadGraphic("assets/images/selector.png");
+		selector.visible = false;
+		add(selector);
+	}
+	
 	override public function update():Void
 	{
 		super.update();
@@ -91,16 +101,21 @@ class GUI extends FlxGroup
 		{
 			costText.visible = true;
 			buildButton.visible = false;
+			selector.visible = false;
 		}
 		else if (Reg.PS.mouse_mode == MODE_SELECTED)
 		{
 			costText.visible = false;
 			buildButton.visible = false;
+			selector.visible = true;
+			selector.x = Reg.PS.selectedTower.x;
+			selector.y = Reg.PS.selectedTower.y;
 		}
 		else
 		{
 			costText.visible = false;
 			buildButton.visible = true;
+			selector.visible = false;
 		}
 
 	}
